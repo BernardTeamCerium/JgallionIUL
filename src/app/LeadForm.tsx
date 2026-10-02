@@ -34,9 +34,12 @@ export function LeadForm({
         <p className={s.eyebrow}>You&rsquo;re all set</p>
         <h3 className={s.thanksTitle}>Thank you{state.firstName ? `, ${state.firstName}` : ""}.</h3>
         <p>
-          Jaden will reach out shortly with your copy of the IUL Guide and to answer any questions. There&rsquo;s no cost
-          and no obligation.
+          Your copy of the IUL Guide is ready below. Jaden will also reach out shortly to answer any questions.
+          There&rsquo;s no cost and no obligation.
         </p>
+        <a className={s.btnGold} href="/downloads/jgallion-iul-guide.pdf" target="_blank" rel="noopener" download>
+          Download the Guide <span aria-hidden="true">↓</span>
+        </a>
       </div>
     );
   }

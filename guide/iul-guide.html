@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The IUL Guide · J Gallion Financial</title>
+<!--
+  Source for public/downloads/jgallion-iul-guide.pdf (US Letter).
+  Rebuild: node guide/build.js   (needs the playwright package and Chromium)
+-->
+<style>
+  @font-face { font-family: "Playfair Display"; font-weight: 400 900; src: url("fonts/playfair-display-latin.woff2") format("woff2"); }
+  @font-face { font-family: "Plus Jakarta Sans"; font-weight: 200 800; src: url("fonts/plus-jakarta-sans-latin.woff2") format("woff2"); }
+
+  :root {
+    --navy: #0f172a; --navy-900: #0a0f19; --navy-2: #151d2e;
+    --gold: #a07d3e; --gold-light: #cfb068; --gold-grad: linear-gradient(135deg, #bc974e, #dec782);
+    --cream: #fbfbfa; --cream-2: #f4f2ec; --brass-soft: #f8f3e9;
+    --ink: #0f172a; --muted: #475569; --line: #e8e5dd;
+    --serif: "Playfair Display", Georgia, serif;
+    --sans: "Plus Jakarta Sans", "Segoe UI", sans-serif;
+  }
+  @page { size: letter; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #fff; }
+  body { font-family: var(--sans); color: var(--ink); font-size: 10.5pt; line-height: 1.55; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .page { width: 8.5in; height: 11in; position: relative; overflow: hidden; page-break-after: always; break-after: page; background: var(--cream); padding: 0.85in 0.85in 1in; }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  .page.navy { background: linear-gradient(160deg, var(--navy-2), var(--navy-900)); color: #e2e8f0; }
+
+  /* running header / footer */
+  .run { position: absolute; left: 0.85in; right: 0.85in; display: flex; justify-content: space-between; align-items: center; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .run.top { top: 0.42in; }
+  .run.bottom { bottom: 0.45in; border-top: 1px solid var(--line); padding-top: 9px; }
+  .run img { height: 18px; }
+  .run .pg { font-family: var(--serif); font-size: 10pt; letter-spacing: 0; color: var(--gold); }
+
+  h1, h2, h3 { font-family: var(--serif); color: var(--navy); margin: 0; font-weight: 700; }
+  h2 { font-size: 27pt; line-height: 1.12; }
+  h3 { font-size: 15pt; line-height: 1.2; }
+  .gold { color: var(--gold); }
+  .eyebrow { font-size: 8pt; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin: 0 0 10px; }
+  .rule { width: 72px; height: 2px; background: var(--gold); margin: 16px 0 18px; }
+  p { margin: 0 0 10px; }
+  .lede { font-size: 12.5pt; line-height: 1.55; color: var(--ink); }
+  .muted { color: var(--muted); }
+  ul.clean { list-style: none; padding: 0; margin: 0; }
+
+  /* Cover */
+  .cover { padding: 0.9in; display: flex; flex-direction: column; }
+  .cover::before { content: ""; position: absolute; inset: 0.35in; border: 1px solid rgba(207, 176, 104, 0.45); pointer-events: none; }
+  .cover::after { content: ""; position: absolute; right: -2.2in; top: -1.6in; width: 6.5in; height: 6.5in; border-radius: 50%; background: radial-gradient(circle, rgba(207, 176, 104, 0.16), transparent 65%); }
+  .cover .mark { width: 92px; margin: 0.35in 0 0; position: relative; z-index: 1; }
+  .cover .eyebrow { color: var(--gold-light); margin-top: 1.25in; }
+  .cover h1 { color: #fff; font-size: 64pt; line-height: 1; letter-spacing: -0.01em; }
+  .cover h1 span { color: var(--gold-light); }
+  .cover .rule { background: var(--gold-grad); width: 110px; margin: 26px 0; }
+  .cover .sub { font-family: var(--serif); font-size: 18pt; line-height: 1.35; color: #f4f1eb; max-width: 5.2in; font-weight: 600; }
+  .cover .pillars { display: flex; gap: 22px; margin-top: 30px; font-size: 8pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-light); }
+  .cover .pillars span + span::before { content: "·"; margin-right: 22px; color: rgba(207, 176, 104, 0.6); }
+  .cover .by { margin-top: auto; display: flex; align-items: center; gap: 16px; position: relative; z-index: 1; }
+  .cover .by img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; border: 2px solid var(--gold-light); }
+  .cover .by strong { display: block; font-family: var(--serif); font-size: 14pt; color: #fff; }
+  .cover .by span { font-size: 8pt; letter-spacing: 0.16em; text-transform: uppercase; color: #94a3b8; }
+  .cover .edu { position: absolute; bottom: 0.55in; right: 0.9in; font-size: 7pt; letter-spacing: 0.18em; text-transform: uppercase; color: #64748b; }
+
+  /* Contents */
+  .toc { margin-top: 10px; font-size: 10pt; border-top: 1px solid var(--line); }
+  .toc li { display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  .toc .n { font-family: var(--serif); color: var(--gold); font-weight: 700; font-size: 12pt; }
+  .toc .t { font-weight: 500; }
+  .toc .p { font-family: var(--serif); color: var(--muted); }
+  .letter { display: grid; grid-template-columns: 1fr 1.55in; gap: 28px; align-items: start; }
+  .letter img { width: 100%; aspect-ratio: 4 / 4.6; object-fit: cover; object-position: 50% 20%; border-radius: 10px; border-bottom: 4px solid var(--gold); }
+  .sig { font-family: var(--serif); font-size: 14pt; color: var(--navy); margin-top: 6px; }
+
+  /* Overview diagram */
+  .flow { display: grid; grid-template-columns: 1fr 22px 1fr 22px 1fr; align-items: stretch; margin: 22px 0 8px; }
+  .flow .box { background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--gold); border-radius: 10px; padding: 14px; }
+  .flow .box b { display: block; font-family: var(--serif); font-size: 12pt; color: var(--navy); margin-bottom: 4px; }
+  .flow .box span { font-size: 9pt; color: var(--muted); line-height: 1.45; display: block; }
+  .flow .arrow { display: grid; place-items: center; color: var(--gold); font-size: 14pt; }
+  .split2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 20px; }
+  .panel { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; }
+  .panel h3 { font-size: 13pt; margin-bottom: 10px; }
+  .panel li { position: relative; padding-left: 18px; margin-bottom: 7px; font-size: 9.8pt; }
+  .panel li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+  .panel.not li::before { background: transparent; border: 1.5px solid var(--muted); }
+  .panel.dark { background: var(--navy); border-color: var(--navy); color: #cbd5e1; }
+  .panel.dark h3 { color: #fff; }
+
+  /* The 7 things */
+  .thing { padding: 18px 0 16px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 62px 1fr; gap: 6px 18px; }
+  .thing:first-of-type { border-top: 0; padding-top: 4px; }
+  .thing .num { font-family: var(--serif); font-size: 36pt; font-weight: 700; color: var(--gold); line-height: 0.9; }
+  .thing h3 { font-size: 17pt; margin-bottom: 8px; }
+  .thing p { color: #334155; }
+  .ask { margin-top: 6px; background: var(--brass-soft); border-left: 3px solid var(--gold); border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 9.5pt; }
+  .ask b { display: block; font-size: 7.5pt; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 3px; }
+
+  table.ex { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 9.5pt; background: #fff; border-radius: 8px; overflow: hidden; }
+  table.ex th { background: var(--navy); color: #fff; font-weight: 600; text-align: left; padding: 8px 12px; font-size: 8pt; letter-spacing: 0.08em; text-transform: uppercase; }
+  table.ex td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  table.ex td:last-child { font-weight: 600; color: var(--navy); }
+  .note { font-size: 8pt; color: var(--muted); line-height: 1.45; }
+
+  /* Buckets page */
+  .imgrow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 14px 0 18px; }
+  .imgrow img { width: 100%; height: auto; border-radius: 10px; }
+  .buckets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .bucket { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 14px; font-size: 9.3pt; color: var(--muted); }
+  .bucket b { display: block; font-family: var(--serif); font-size: 12.5pt; color: var(--navy); margin: 2px 0 4px; }
+  .bucket small { font-size: 7.5pt; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+  .bucket.hl { border-color: var(--gold); background: var(--brass-soft); }
+
+  /* Checklist */
+  .check li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 10pt; }
+  .check li::before { content: ""; width: 14px; height: 14px; border: 1.5px solid var(--gold); border-radius: 3px; margin-top: 3px; }
+  .check h3 { font-size: 12pt; margin: 16px 0 2px; color: var(--gold); font-family: var(--sans); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; font-size: 8pt; }
+
+  /* Glossary */
+  .gloss { columns: 2; column-gap: 28px; margin-top: 18px; }
+  .gloss div { break-inside: avoid; margin-bottom: 12px; font-size: 9.3pt; color: #334155; }
+  .gloss b { display: block; font-family: var(--serif); font-size: 11pt; color: var(--navy); }
+
+  /* Back page */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 18px 0 22px; }
+  .steps div { border-top: 2px solid var(--gold-light); padding-top: 10px; font-size: 9.3pt; color: #cbd5e1; }
+  .steps b { display: block; font-family: var(--serif); color: #fff; font-size: 12pt; }
+  .steps i { font-style: normal; font-family: var(--serif); color: var(--gold-light); font-weight: 700; font-size: 13pt; }
+  .navy h2 { color: #fff; }
+  .navy .eyebrow { color: var(--gold-light); }
+  .cta { display: inline-block; background: var(--gold-grad); color: var(--navy-900); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; font-size: 9pt; padding: 12px 22px; border-radius: 999px; text-decoration: none; }
+  .about { display: grid; grid-template-columns: 1.15in 1fr; gap: 20px; align-items: center; margin-top: 26px; padding-top: 22px; border-top: 1px solid rgba(207, 176, 104, 0.3); }
+  .about img { width: 1.15in; height: 1.15in; border-radius: 50%; object-fit: cover; object-position: 50% 20%; border: 2px solid var(--gold-light); }
+  .about strong { font-family: var(--serif); font-size: 15pt; color: #fff; display: block; }
+  .about span { font-size: 8pt; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-light); }
+  .disclose { position: absolute; left: 0.85in; right: 0.85in; bottom: 0.55in; font-size: 6.9pt; line-height: 1.5; color: #94a3b8; border-top: 1px solid rgba(148, 163, 184, 0.25); padding-top: 12px; }
+  .disclose p { margin: 0 0 6px; }
+  .navy .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 0.45in; }
+  .navy .logo img { height: 34px; }
+  .navy .logo span { font-family: var(--serif); font-weight: 600; color: #fff; letter-spacing: 0.06em; font-size: 13pt; }
+</style>
+</head>
+<body>
+
+<!-- 1. Cover -->
+<section class="page navy cover">
+  <img class="mark" src="../public/brand/jg-mark.png" alt="J Gallion Financial">
+  <p class="eyebrow">Complimentary Guide · 2026 Edition</p>
+  <h1>The <span>IUL</span><br>Guide</h1>
+  <div class="rule"></div>
+  <p class="sub">7 Things to Understand Before Using an Indexed Universal Life Policy in Your Retirement Strategy</p>
+  <div class="pillars"><span>Build Protection</span><span>Pursue Growth</span><span>Create Opportunity</span></div>
+  <div class="by">
+    <img src="../public/images/jaden.webp" alt="">
+    <div><strong>Jaden Gallion</strong><span>Insurance Professional · J Gallion Financial</span></div>
+  </div>
+  <div class="edu">For educational purposes only</div>
+</section>
+
+<!-- 2. Welcome + contents -->
+<section class="page">
+  <div class="run top"><img src="../public/brand/jg-mark.png" alt=""><span>The IUL Guide</span></div>
+  <p class="eyebrow">Welcome</p>
+  <h2>Clear Answers, <span class="gold">No Pressure.</span></h2>
+  <div class="rule"></div>
+  <div class="letter">
+    <div>
+      <p class="lede">Indexed Universal Life is one of the most talked-about, and most misunderstood, tools in retirement planning.</p>
+      <p>Some people hear it described as a way to get market gains with no risk. Others hear it is always a bad deal. The truth sits in between: an IUL is a life insurance policy with real benefits and real trade-offs, and whether it fits depends on your goals, your budget and how the policy is designed.</p>
+      <p>This guide walks through the seven things I believe everyone should understand before using an IUL as part of a retirement strategy: what it may provide, and where its limits are. Read it at your own pace, write down your questions, and use the checklist near the end when you talk with any insurance professional, including me.</p>
+      <p class="sig">Jaden Gallion</p>
+      <p class="muted" style="font-size:9pt">Insurance Professional, J Gallion Financial</p>
+    </div>
+    <img src="../public/images/jaden.webp" alt="Jaden Gallion">
+  </div>
+  <p class="eyebrow" style="margin-top:18px">Inside this guide</p>
+  <ul class="clean toc">
+    <li><span class="n">—</span><span class="t">An IUL in plain language</span><span class="p">3</span></li>
+    <li><span class="n">01</span><span class="t">It’s life insurance first</span><span class="p">4</span></li>
+    <li><span class="n">02</span><span class="t">How index crediting works</span><span class="p">4</span></li>
+    <li><span class="n">03</span><span class="t">Caps and participation rates</span><span class="p">5</span></li>
+    <li><span class="n">04</span><span class="t">Floors protect against index losses</span><span class="p">5</span></li>
+    <li><span class="n">05</span><span class="t">Policy charges matter</span><span class="p">6</span></li>
+    <li><span class="n">06</span><span class="t">Loans give access, with trade-offs</span><span class="p">6</span></li>
+    <li><span class="n">07</span><span class="t">Many values aren’t guaranteed</span><span class="p">7</span></li>
+    <li><span class="n">—</span><span class="t">The third bucket and tax diversification</span><span class="p">8</span></li>
+    <li><span class="n">—</span><span class="t">Is an IUL a fit? · Questions to ask · Glossary</span><span class="p">9–11</span></li>
+  </ul>
+  <div class="run bottom"><span>J Gallion Financial</span><span class="pg">2</span></div>
+</section>
+
+<!-- 3. Plain language -->
+<section class="page">
+  <div class="run top"><img src="../public/brand/jg-mark.png" alt=""><span>The Basics</span></div>
+  <p class="eyebrow">The basics</p>
+  <h2>An IUL in <span class="gold">Plain Language</span></h2>
+  <div class="rule"></div>
+  <p class="lede">An Indexed Universal Life (IUL) policy is <b>permanent life insurance</b>. It pays a death benefit to your beneficiaries and can build <b>cash value</b> over time, with interest credited based on the performance of a market index.</p>
+  <p>You pay premiums into the policy. The insurer deducts the cost of insurance and other charges. What remains becomes cash value, which earns interest through a fixed account, one or more index accounts, or both. Over time, that cash value may be available to you through policy loans or withdrawals, while the death benefit protects the people who depend on you.</p>
+
+  <div class="flow">
+    <div class="box"><b>1. Premiums</b><span>You pay in, within limits set by the policy and tax law. Many IULs offer flexible premiums.</span></div>
+    <div class="arrow">→</div>
+    <div class="box"><b>2. Charges</b><span>Cost of insurance, policy fees and any rider charges are deducted, usually every month.</span></div>
+    <div class="arrow">→</div>
+    <div class="box"><b>3. Cash value</b><span>Earns interest linked to an index, subject to caps, participation rates and a floor.</span></div>
+  </div>
+  <p class="note">The death benefit stays in place as long as the policy remains in force. Cash value may be accessed through loans or withdrawals, which reduce the death benefit.</p>
+
+  <div class="split2">
+    <div class="panel">
+      <h3>What an IUL <span class="gold">is</span></h3>
+      <ul class="clean">
+        <li>Permanent life insurance with a death benefit</li>
+        <li>A policy with cash value that may grow over time</li>
+        <li>Interest credited based on an index, with a floor against index losses</li>
+        <li>Flexible: premiums and death benefit can often be adjusted</li>
+        <li>A long-term commitment that needs ongoing reviews</li>
+      </ul>
+    </div>
+    <div class="panel not">
+      <h3>What an IUL <span class="muted">is not</span></h3>
+      <ul class="clean">
+        <li>An investment in the stock market or an index fund</li>
+        <li>A replacement for an emergency fund</li>
+        <li>A short-term savings account</li>
+        <li>“Market gains with no risk”: upside is limited and charges continue</li>
+        <li>A one-size-fits-all solution</li>
+      </ul>
+    </div>
+  </div>
+  <div class="run bottom"><span>J Gallion Financial</span><span class="pg">3</span></div>
+</section>
+
+<!-- 4. Things 1–2 -->
+<section class="page">
+  <div class="run top"><img src="../public/brand/jg-mark.png" alt=""><span>7 Things to Understand</span></div>
+  <p class="eyebrow">7 things to understand</p>
+  <h2>Start With <span class="gold">the Foundation</span></h2>
+  <div class="rule"></div>
+
+  <div class="thing">
+    <div class="num">01</div>
+    <div>
+      <h3>It’s Life Insurance First</h3>
+      <p>An IUL is permanent life insurance with a death benefit. It is not a stock-market investment, and it should start with a real need for protection: a family that depends on your income, a mortgage, a business partner, or a legacy you want to leave.</p>
+      <p>Because it is insurance, you will go through underwriting. Your age, health and lifestyle affect the cost of coverage, and that cost is built into every year of the policy. If you don’t need life insurance, an IUL is rarely the most efficient place for your savings.</p>
+      <div class="ask"><b>Ask your professional</b>How much death benefit do I actually need, and how does that amount affect the cost and cash value of this policy?</div>
+    </div>
+  </div>
+
+  <div class="thing">
+    <div class="num">02</div>
+    <div>
+      <h3>How Index Crediting Works</h3>
+      <p>Your cash value isn’t invested in the market directly. Instead, the insurer credits interest based on the performance of an index, such as the S&amp;P 500®, over a set period called a <b>crediting period</b> or segment, often one year.</p>
+      <p>At the end of each period, the insurer looks at how the index moved, applies the policy’s cap, participation rate and floor, and credits interest to your cash value. Dividends paid by companies in the index are generally <i>not</i> included in the index return used for crediting.</p>
+      <p>Most policies offer several crediting strategies, including a fixed account, and let you choose how your cash value is allocated among them.</p>
+      <div class="ask"><b>Ask your professional</b>Which index strategies does this policy offer, how long is each crediting period, and how often can I change my allocation?</div>
+    </div>
+  </div>
+  <div class="run bottom"><span>J Gallion Financial</span><span class="pg">4</span></div>
+</section>
+
+<!-- 5. Things 3–4 -->
+<section class="page">
+  <div class="run top"><img src="../public/brand/jg-mark.png" alt=""><span>7 Things to Understand</span></div>
+  <div class="thing">
+    <div class="num">03</div>
+    <div>
+      <h3>Caps and Participation Rates</h3>
+      <p>Upside is limited. A <b>cap</b> is the maximum interest rate that can be credited in a period. A <b>participation rate</b> is the share of the index gain used to calculate your interest. Some strategies also use a <b>spread</b>, a percentage subtracted from the index gain.</p>
+      <p>The insurer can usually change caps, participation rates and spreads over time, within the minimums guaranteed in the contract. A rate that looks attractive today may not stay that way.</p>
+      <div class="ask"><b>Ask your professional</b>What are the current caps and participation rates, what are the guaranteed minimums, and how have this carrier’s rates changed in past years?</div>
+    </div>
+  </div>
+
+  <div class="thing">
+    <div class="num">04</div>
+    <div>
+      <h3>Floors Protect Against Index Losses</h3>
+      <p>Many policies have a <b>0% floor</b>, so a down year for the index isn’t credited as a loss to your cash value. That protection is a key reason people consider an IUL. But a floor applies to <i>index crediting only</i>: policy charges are still deducted in those years, so your cash value can still go down.</p>
+      <p class="eyebrow" style="margin-top:12px">Hypothetical example · one-year crediting period</p>
+      <table class="ex">
+        <tr><th>Index change</th><th>Cap</th><th>Participation</th><th>Floor</th><th>Interest credited</th></tr>
+        <tr><td>−15%</td><td>10%</td><td>100%</td><td>0%</td><td>0%</td></tr>
+        <tr><td>+4%</td><td>10%</td><td>100%</td><td>0%</td><td>4%</td></tr>
+        <tr><td>+9%</td><td>10%</td><td>100%</td><td>0%</td><td>9%</td></tr>
+        <tr><td>+18%</td><td>10%</td><td>100%</td><td>0%</td><td>10% (capped)</td></tr>
+      </table>
+      <p class="note">This example is hypothetical, is for illustration only, and does not represent any specific policy, index, or actual or future results. Policy charges are deducted regardless of the interest credited.</p>
+      <div class="ask"><b>Ask your professional</b>In a year when the index loses value, how much would charges reduce my cash value?</div>
+    </div>
+  </div>
+  <div class="run bottom"><span>J Gallion Financial</span><span class="pg">5</span></div>
+</section>
+
+<!-- 6. Things 5–6 -->
+<section class="page">
+  <div class="run top"><img src="../public/brand/jg-mark.png" alt=""><span>7 Things to Understand</span></div>
+  <div class="thing">
+    <div class="num">05</div>
+    <div>
+      <h3>Policy Charges Matter</h3>
+      <p>Cost of insurance, premium charges, administrative fees and rider charges all reduce cash value, especially in the early years. The cost of insurance generally rises as you get older, so how the policy is funded over time makes a big difference.</p>
+      <p>Most IULs also have <b>surrender charges</b> for the first 10 to 15 years. If you cancel the policy or take out too much during that time, you may get back less than you paid in.</p>
+      <div class="ask"><b>Ask your professional</b>Can you walk me through every charge in this illustration, and what would I receive if I surrendered the policy in year 5 or year 10?</div>
+    </div>
+  </div>
+
+  <div class="thing">
+    <div class="num">06</div>
+    <div>
+      <h3>Loans Give Access, With Trade-offs</h3>
+      <p>Once cash value has built up, you can borrow against it, often without credit checks and with flexible repayment. Under current tax law, policy loans are generally not taxable while the policy stays in force and is not a modified endowment contract (MEC).</p>
+      <p>But loans accrue interest, and any unpaid loan balance reduces the death benefit and the cash value available. If loans and charges grow larger than the cash value, the policy can <b>lapse</b>, and a lapse with an outstanding loan may create a taxable gain. Loan interest rates and loan types (fixed, variable or indexed) differ by carrier.</p>
+      <div class="ask"><b>Ask your professional</b>What loan options does this policy offer, what are the rates, and how would we monitor loans so the policy doesn’t lapse?</div>
+    </div>
+  </div>
+  <div class="run bottom"><span>J Gallion Financial</span><span class="pg">6</span></div>
+</section>
+
+<!-- 7. Thing 7 + funding -->
+<section class="page">
+  <div class="run top"><img src="../public/brand/jg-mark.png" alt=""><span>7 Things to Understand</span></div>
+  <div class="thing">
+    <div class="num">07</div>
+    <div>
+      <h3>Many Values Aren’t Guaranteed</h3>
+      <p>An IUL illustration shows how a policy <i>might</i> perform under certain assumptions. It usually includes a <b>guaranteed</b> column, based on maximum charges and minimum crediting, and a <b>non-guaranteed</b> column, based on current charges and an assumed interest rate.</p>
+      <p>Illustrations are hypothetical. Actual results depend on how the policy is funded, how the index performs, and changes to caps and charges. Comparing the guaranteed and non-guaranteed columns, and asking to see illustrations at lower assumed rates, gives a more realistic picture.</p>
+      <div class="ask"><b>Ask your professional</b>Can I see this illustration at a lower assumed rate, and what happens in the guaranteed column?</div>
+    </div>
+  </div>
+
+  <div class="panel dark" style="margin-top:14px">
+    <h3>Funding and Reviews: <span class="gold" style="color:var(--gold-light)">The Part People Skip</span></h3>
+    <p>How you fund an IUL can matter as much as which policy you choose. Many people who use an IUL for cash value accumulation aim to fund it above the minimum premium, while staying within IRS limits so the policy isn’t classified as a modified endowment contract (MEC). A MEC loses some of the tax advantages of life insurance on loans and withdrawals.</p>
+    <p style="margin:0">An IUL is not “set it and forget it.” A yearly review of your in-force illustration, crediting rates, charges and any loans helps keep the policy on track with your goals.</p>
+  </div>
+  <div class="split2">
+    <div class="panel">
+      <h3>Signs of a well-designed policy</h3>
+      <ul class="clean">
+        <li>Starts with a clear protection need</li>
+        <li>Premium you can afford for the long term</li>
+        <li>Illustrated at a reasonable, conservative rate</li>
+        <li>Funding stays within MEC limits</li>
+      </ul>
+    </div>
+    <div class="panel not">
+      <h3>Red flags to watch for</h3>
+      <ul class="clean">
+        <li>Promises of “market returns with no risk”</li>
+        <li>Pressure to decide quickly</li>
+        <li>Only the most optimistic illustration shown</li>
+        <li>Funding with money you may need soon</li>
+      </ul>
+    </div>
+  </div>
+  <div class="run bottom"><span>J Gallion Financial</span><span class="pg">7</span></div>
+</section>
+
+<!-- 8. Third bucket + tax diversification -->
+<section class="page">
+  <div class="run top"><img src="../public/brand/jg-mark.png" alt=""><span>The Bigger Picture</span></div>
+  <p class="eyebrow">The bigger picture</p>
+  <h2>The Third Bucket and <span class="gold">Tax Diversification</span></h2>
+  <div class="rule"></div>
+  <p class="lede">Retirement planning isn’t only about how much you save. It’s also about where your money sits, and how it may be taxed when you need income.</p>
+  <div class="imgrow">
+    <img src="../public/images/buckets.webp" alt="">
+    <img src="../public/images/tax.webp" alt="">
+  </div>
+  <div class="buckets">
+    <div class="bucket"><small>Bucket 1</small><b>Your 401(k)</b>Tax-deferred growth and often an employer match. Withdrawals in retirement are generally taxed as ordinary income.</div>
+    <div class="bucket"><small>Bucket 2</small><b>Your Savings</b>Liquid and accessible for emergencies and near-term goals, with growth that’s generally taxed along the way.</div>
+    <div class="bucket hl"><small>Bucket 3</small><b>An Insurance Strategy</b>Properly structured permanent life insurance adds a death benefit plus cash value that may be accessed later.</div>
+  </div>
+  <p style="margin-top:18px"><b>Tax now, tax later, or tax-advantaged.</b> Savings and brokerage accounts are generally taxed as you go. Traditional 401(k)s and IRAs are generally taxed when you withdraw. Roth accounts and properly structured life insurance may offer tax-advantaged access. Having money in more than one tax category can give you more choices about where retirement income comes from in a given year.</p>
+  <p class="note">An IUL’s death benefit is generally income-tax-free to beneficiaries under current law. Tax treatment of loans and withdrawals depends on the policy remaining in force and not becoming a MEC. J Gallion Financial does not provide tax or legal advice; consult a qualified tax professional about your situation.</p>
+  <div class="run bottom"><span>J Gallion Financial</span><span class="pg">8</span></div>
+</section>
+
+<!-- 9. Fit -->
+<section class="page">
+  <div class="run top"><img src="../public/brand/jg-mark.png" alt=""><span>Is It a Fit?</span></div>
+  <p class="eyebrow">Is it a fit?</p>
+  <h2>Who an IUL <span class="gold">May Suit</span></h2>
+  <div class="rule"></div>
+  <p class="lede">An IUL tends to make the most sense when protection and long-term planning come together, and when the budget supports consistent funding for many years.</p>
+  <div class="split2">
+    <div class="panel">
+      <h3>It may be worth exploring if you…</h3>
+      <ul class="clean">
+        <li>Need permanent life insurance for family, a mortgage or a legacy</li>
+        <li>Already contribute consistently to a 401(k) or maxed it out</li>
+        <li>Have an emergency fund and stable cash flow</li>
+        <li>Can fund a policy for 10 years or more</li>
+        <li>Want more tax diversification in retirement</li>
+        <li>Own a business and want assets outside the company</li>
+        <li>Are a high earner limited by retirement plan contribution caps</li>
+      </ul>
+    </div>
+    <div class="panel not">
+      <h3>It may not be the right fit if you…</h3>
+      <ul class="clean">
+        <li>Don’t need life insurance</li>
+        <li>Have high-interest debt or no emergency savings</li>
+        <li>Aren’t yet capturing a full employer 401(k) match</li>
+        <li>May need the money within the next several years</li>
+        <li>Are uncomfortable with ongoing policy reviews</li>
+        <li>Only want the lowest-cost death benefit (term may fit better)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:18px; background: var(--brass-soft); border-color: rgba(160,125,62,0.3)">
+    <h3>Who we often work with</h3>
+    <p style="margin:0">Families planning for long-term protection, maxed-out 401(k) savers, business owners, and healthcare professionals balancing demanding careers with family. Every situation is different, which is why a conversation starts with your goals, not a product.</p>
+  </div>
+  <div class="run bottom"><span>J Gallion Financial</span><span class="pg">9</span></div>
+</section>
+
+<!-- 10. Checklist -->
+<section class="page">
+  <div class="run top"><img src="../public/brand/jg-mark.png" alt=""><span>Your Checklist</span></div>
+  <p class="eyebrow">Bring this to your review</p>
+  <h2>Questions to Ask <span class="gold">Before You Decide</span></h2>
+  <div class="rule"></div>
+  <div class="check">
+    <h3>Purpose</h3>
+    <ul class="clean">
+      <li>What problem is this policy solving for me: protection, accumulation, legacy, or all three?</li>
+      <li>Why an IUL instead of term life, whole life or simply investing more in my retirement accounts?</li>
+    </ul>
+    <h3>Design</h3>
+    <ul class="clean">
+      <li>How much death benefit is included, and why that amount?</li>
+      <li>What premium is planned, for how many years, and what happens if I pay less?</li>
+      <li>Is the funding designed to stay within MEC limits?</li>
+      <li>Which riders are included, and what does each one cost?</li>
+    </ul>
+    <h3>Crediting and costs</h3>
+    <ul class="clean">
+      <li>What are the current and guaranteed caps, participation rates and floors?</li>
+      <li>What are all the charges, and how do they change as I age?</li>
+      <li>What are the surrender charges, and for how many years?</li>
+    </ul>
+    <h3>Illustrations and access</h3>
+    <ul class="clean">
+      <li>Can I see the illustration at a lower assumed rate, and the guaranteed column?</li>
+      <li>How would loans or withdrawals work, and what are the loan rates?</li>
+      <li>How will we review this policy each year, and who will I work with?</li>
+    </ul>
+  </div>
+  <div class="run bottom"><span>J Gallion Financial</span><span class="pg">10</span></div>
+</section>
+
+<!-- 11. Glossary -->
+<section class="page">
+  <div class="run top"><img src="../public/brand/jg-mark.png" alt=""><span>Glossary</span></div>
+  <p class="eyebrow">Reference</p>
+  <h2>Key Terms, <span class="gold">Simply Explained</span></h2>
+  <div class="rule"></div>
+  <div class="gloss">
+    <div><b>Cash value</b>The portion of the policy that can build over time after charges, and that may be accessed through loans or withdrawals.</div>
+    <div><b>Cap rate</b>The maximum interest rate that can be credited for a crediting period.</div>
+    <div><b>Cost of insurance (COI)</b>The charge for the death benefit protection, based on your age, health and the amount at risk. It generally rises with age.</div>
+    <div><b>Crediting period</b>The length of time, often one year, over which index performance is measured to calculate interest.</div>
+    <div><b>Death benefit</b>The amount paid to your beneficiaries when you pass away, reduced by any outstanding loans or withdrawals.</div>
+    <div><b>Floor</b>The minimum interest rate credited in a period, often 0%, so index losses aren’t credited to your cash value.</div>
+    <div><b>Illustration</b>A hypothetical projection of how a policy might perform under stated assumptions. It is not a guarantee.</div>
+    <div><b>Index</b>A measure of market performance, such as the S&amp;P 500®, used to calculate interest. You are not invested in the index.</div>
+    <div><b>Lapse</b>When a policy ends because cash value can no longer cover charges and loan interest. Coverage stops and taxes may be due.</div>
+    <div><b>Modified endowment contract (MEC)</b>A policy funded beyond IRS limits. Loans and withdrawals from a MEC lose some of life insurance’s tax advantages.</div>
+    <div><b>Participation rate</b>The percentage of the index gain used to calculate interest.</div>
+    <div><b>Policy loan</b>Money borrowed from the insurer using your cash value as collateral. Loans accrue interest and reduce the death benefit.</div>
+    <div><b>Rider</b>An optional add-on that changes or adds benefits, such as chronic or terminal illness benefits, usually for an extra charge.</div>
+    <div><b>Spread</b>A percentage subtracted from the index gain before interest is credited, used by some strategies instead of or alongside a cap.</div>
+    <div><b>Surrender charge</b>A fee for cancelling the policy or withdrawing large amounts during the early years.</div>
+    <div><b>Underwriting</b>The process an insurer uses to review your health and other factors to approve coverage and set its cost.</div>
+  </div>
+  <div class="run bottom"><span>J Gallion Financial</span><span class="pg">11</span></div>
+</section>
+
+<!-- 12. Next steps + disclosures -->
+<section class="page navy">
+  <div class="logo"><img src="../public/brand/jg-mark.png" alt=""><span>J GALLION FINANCIAL</span></div>
+  <p class="eyebrow">Next steps</p>
+  <h2>Strategy Today. <span style="color:var(--gold-light)">A Brighter Tomorrow.</span></h2>
+  <div class="rule" style="background:var(--gold-grad)"></div>
+  <p style="font-size:12pt; color:#cbd5e1; max-width:5.6in">If you’d like to see whether an IUL belongs in your plan, the next step is a short, no-cost educational conversation. No pressure, and no obligation.</p>
+  <div class="steps">
+    <div><i>01</i><b>Read the guide</b>Learn the basics on your own time and note your questions.</div>
+    <div><i>02</i><b>Have a conversation</b>A short review of your goals, budget and current accounts.</div>
+    <div><i>03</i><b>Decide what fits</b>Move forward only if it makes sense for you and your family.</div>
+  </div>
+  <a class="cta" href="https://jgallionfinancial.com">Visit jgallionfinancial.com &nbsp;→</a>
+  <div class="about">
+    <img src="../public/images/jaden.webp" alt="Jaden Gallion">
+    <div>
+      <strong>Jaden Gallion</strong>
+      <span>Insurance Professional · J Gallion Financial</span>
+      <p style="margin:8px 0 0; font-size:9.5pt; color:#cbd5e1">Jaden helps families, professionals and business owners understand how life insurance strategies like Indexed Universal Life may fit alongside the retirement accounts they already have. His approach is education first: how a policy works, what it costs, what isn’t guaranteed, and whether it makes sense for you at all.</p>
+    </div>
+  </div>
+  <div class="disclose">
+    <p>For educational purposes only. This guide is general information, not a recommendation, and is not an offer to sell any specific product. J Gallion Financial and Jaden Gallion provide insurance products and do not provide tax or legal advice; consult a qualified tax or legal professional about your situation.</p>
+    <p>Indexed Universal Life is a life insurance product, not a security or stock-market investment, and does not directly participate in any stock or equity investment. Policy features, caps, participation rates, spreads and charges vary by carrier, product and state, and many policy values are not guaranteed. Examples are hypothetical and do not represent any specific product or actual or future results. Policy loans and withdrawals reduce cash value and death benefit, may cause the policy to lapse, and may have tax consequences. Guarantees are based on the claims-paying ability of the issuing insurer. Coverage is subject to underwriting and approval.</p>
+    <p>S&amp;P 500® is a registered trademark of S&amp;P Dow Jones Indices LLC. © 2026 J Gallion Financial. All rights reserved.</p>
+  </div>
+</section>
+
+</body>
+</html>

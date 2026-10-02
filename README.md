@@ -19,12 +19,12 @@ Each ad links to the page with `?c=` so the headline and button match the ad tha
 
 | Campaign | Link | Headline | Button |
 |---|---|---|---|
-| IUL Education (default) | `/` or `/?c=guide` | Thinking about an IUL? Start here. | Get the Free Guide |
-| Third Retirement Bucket | `/?c=bucket` | You have a 401(k). You have savings. What's your third bucket? | Explore Your Options |
-| Future Tax Exposure | `/?c=tax` | What if taxes are higher when you retire? | Get a Retirement Review |
-| Maxed Out 401(k) | `/?c=401k` | Maxed out your 401(k)? What's next? | See Additional Strategies |
-| Business Owners | `/?c=owner` | Your business isn't your retirement plan. | Get the Business Owner Guide |
-| Healthcare Professionals | `/?c=healthcare` | You take care of everyone else. What's your plan? | Request Information |
+| IUL Education (default) | `/` or `/?c=guide` | Thinking About an IUL? Start Here. | Get the Free Guide |
+| Third Retirement Bucket | `/?c=bucket` | You Have a 401(k). You Have Savings. What's Your Third Bucket? | Explore Your Options |
+| Future Tax Exposure | `/?c=tax` | What If Taxes Are Higher When You Retire? | Get a Retirement Review |
+| Maxed Out 401(k) | `/?c=401k` | Maxed Out Your 401(k)? What's Next? | See Additional Strategies |
+| Business Owners | `/?c=owner` | Your Business Isn't Your Retirement Plan. | Get the Business Owner Guide |
+| Healthcare Professionals | `/?c=healthcare` | You Take Care of Everyone Else. What's Your Plan? | Request Information |
 
 Example: `https://<site>/?c=401k&utm_source=facebook&utm_campaign=maxed-401k`
 
@@ -61,8 +61,12 @@ cp .env.example .env.local   # set LEAD_WEBHOOK_URL
 npm run dev
 ```
 
+## The IUL Guide (PDF)
+
+The lead magnet is `public/downloads/jgallion-iul-guide.pdf` (12 pages, US Letter), built from [`guide/iul-guide.html`](guide/iul-guide.html) with the brand fonts in `guide/fonts/`. To edit it, change the HTML and rebuild with `npx -y -p playwright node guide/build.js`, or open the HTML in Chrome and *Print → Save as PDF* (Letter, no margins, background graphics on).
+
 ## Before launch
 
-- Have compliance review the copy and the footer disclaimer, and add Jaden's license numbers or states if required.
+- Have compliance review the page copy, the IUL Guide and the disclaimers, and add Jaden's license numbers or states if required.
 - Confirm the bio in "Meet Jaden" and add a phone number or booking link if wanted.
-- The thank-you message promises the IUL Guide, so set up the follow-up that delivers it (for example, a CRM email workflow).
+- After submitting, visitors get a download button for the IUL Guide (`/downloads/jgallion-iul-guide.pdf`). Link the same file in the CRM follow-up email.
