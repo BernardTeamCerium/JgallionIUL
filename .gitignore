@@ -6,3 +6,7 @@ next-env.d.ts
 .env*
 !.env.example
 .netlify
+
+# Local previews and packaged zips (generated, not part of the site)
+previews/
+deliverables/
