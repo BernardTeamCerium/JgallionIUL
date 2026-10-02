@@ -1,4 +1,4 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-html, body { margin: 0; background: #faf6ee; }
+html, body { margin: 0; background: #fbfbfa; }
 body { -webkit-font-smoothing: antialiased; }

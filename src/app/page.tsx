@@ -173,9 +173,12 @@ function Icon({ name }: { name: "shield" | "sprout" | "coins" }) {
 
 function Wordmark({ light }: { light?: boolean }) {
   return (
-    <span className={`${s.wordmark} ${light ? s.wordmarkLight : ""}`} aria-label="J Gallion Financial">
-      <span className={s.wmTop}>J GALLION</span>
-      <span className={s.wmBottom}>FINANCIAL</span>
+    <span className={s.logo} aria-label="J Gallion Financial">
+      <img src="/brand/jg-mark.png" alt="" width={362} height={340} />
+      <span className={`${s.wordmark} ${light ? s.wordmarkLight : ""}`} aria-hidden="true">
+        <span className={s.wmTop}>J GALLION</span>
+        <span className={s.wmBottom}>FINANCIAL</span>
+      </span>
     </span>
   );
 }
@@ -198,12 +201,6 @@ export default async function JGallionLanding({
 
   return (
     <div className={s.page}>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Jost:wght@400;500;600&display=swap"
-        precedence="default"
-      />
-
       <header className={s.header}>
         <div className={s.wrap}>
           <Wordmark />

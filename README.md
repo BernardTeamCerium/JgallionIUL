@@ -1,8 +1,17 @@
 # J Gallion Financial: IUL landing page
 
-Lead-capture landing page for **Jaden Gallion, Insurance Professional at J Gallion Financial**, built for the Indexed Universal Life (IUL) Meta ad campaigns. The copy comes from the *J Gallion IUL Marketing Creative Playbook*. The look (navy, cream and gold with serif headlines) matches the ad creative in [`ads/`](ads).
+Lead-capture landing page for **Jaden Gallion, Insurance Professional at J Gallion Financial**, built for the Indexed Universal Life (IUL) Meta ad campaigns. The copy comes from the *J Gallion IUL Marketing Creative Playbook*. The look matches jgallionfinancial.com and jadengallion.com (deep navy, brass and gold, Playfair Display with Plus Jakarta Sans, and the JG monogram) and the ad creative in [`ads/`](ads). Logo files and the color palette are in [`brand/`](brand).
 
 Built with Next.js 15 and deployed to Netlify (see `netlify.toml`).
+
+## Deploy to Netlify
+
+The lead form runs on the server, so the site has to be **built by Netlify**. Dragging a folder onto Netlify's "Deploy manually" box won't work for this site.
+
+- **From GitHub (recommended):** in Netlify choose *Add new site → Import an existing project*, pick this repo and branch. Netlify reads `netlify.toml` and runs the Next.js build automatically.
+- **From a zip, without GitHub:** unzip the source, then run `npx netlify-cli deploy --build --prod` in that folder.
+
+Either way, set `LEAD_WEBHOOK_URL` (and optionally `SITE_URL`) under *Site configuration → Environment variables* before going live.
 
 ## Ad variants (message match)
 
