@@ -23,42 +23,42 @@ const VARIANTS = {
     lines: [["Thinking About"], ["an ", "IUL?"], ["Start Here."]],
     sub: "Get a simple guide to understand how Indexed Universal Life works: what it may provide, and where its limitations are.",
     cta: "Get the Free Guide",
-    interest: "The free IUL Guide",
+    interest: "The Free IUL Guide",
   },
   bucket: {
     eyebrow: "The third bucket",
     lines: [["You Have a 401(k)."], ["You Have Savings."], ["What’s Your ", "Third Bucket?"]],
     sub: "Your 401(k) doesn’t have to be your entire retirement strategy. Discover another approach to protection and long-term planning.",
     cta: "Explore Your Options",
-    interest: "The free IUL Guide",
+    interest: "The Free IUL Guide",
   },
   tax: {
     eyebrow: "Tax diversification",
     lines: [["What If Taxes"], ["", "Are Higher"], ["When You Retire?"]],
     sub: "Retirement planning isn’t only about how much you accumulate. It’s also about how your assets may be taxed when you need income.",
     cta: "Get a Retirement Review",
-    interest: "A retirement / tax diversification review",
+    interest: "A Retirement / Tax Diversification Review",
   },
   "401k": {
     eyebrow: "Beyond the 401(k)",
     lines: [["Maxed Out"], ["Your 401(k)?"], ["", "What’s Next?"]],
     sub: "Already funding your employer plan consistently? Explore additional long-term strategies for protection and accumulation.",
     cta: "See Additional Strategies",
-    interest: "What to do after maxing out my 401(k)",
+    interest: "What to Do After Maxing Out My 401(k)",
   },
   owner: {
     eyebrow: "For business owners",
     lines: [["Your Business"], ["Isn’t Your"], ["", "Retirement Plan."]],
     sub: "Build assets and protection outside the company you’re building, with strategies that may complement the value of your business.",
     cta: "Get the Business Owner Guide",
-    interest: "Business owner strategies",
+    interest: "Business Owner Strategies",
   },
   healthcare: {
     eyebrow: "For healthcare professionals",
     lines: [["You Take Care"], ["of Everyone Else."], ["What’s ", "Your Plan?"]],
     sub: "Retirement and protection planning for nurses, clinicians and healthcare professionals balancing demanding careers and family.",
     cta: "Request Information",
-    interest: "Planning for healthcare professionals",
+    interest: "Planning for Healthcare Professionals",
   },
 } as const;
 
@@ -237,7 +237,7 @@ export default async function JGallionLanding({
               ))}
             </ul>
             <div className={s.agent}>
-              <img src="/images/jaden.webp" alt="" width={56} height={56} />
+              <img src="/images/jaden-avatar.webp" alt="" width={56} height={56} />
               <div>
                 <strong>Jaden Gallion</strong>
                 <span>Insurance Professional · J Gallion Financial</span>
@@ -369,7 +369,7 @@ export default async function JGallionLanding({
       {/* Meet Jaden */}
       <section className={s.section}>
         <div className={`${s.wrap} ${s.meet}`}>
-          <img className={s.portrait} src="/images/jaden.webp" alt="Jaden Gallion" width={600} height={520} />
+          <img className={s.portrait} src="/images/jaden.webp" alt="Jaden Gallion" width={800} height={993} />
           <div>
             <p className={s.eyebrow}>Meet your guide</p>
             <h2 className={s.h2}>Jaden Gallion</h2>

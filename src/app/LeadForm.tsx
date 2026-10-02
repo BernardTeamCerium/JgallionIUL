@@ -7,12 +7,12 @@ import s from "./landing.module.css";
 const STATES = "AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY".split(" ");
 
 const INTERESTS = [
-  "The free IUL Guide",
-  "A retirement / tax diversification review",
-  "What to do after maxing out my 401(k)",
-  "Business owner strategies",
-  "Planning for healthcare professionals",
-  "Life insurance protection for my family",
+  "The Free IUL Guide",
+  "A Retirement / Tax Diversification Review",
+  "What to Do After Maxing Out My 401(k)",
+  "Business Owner Strategies",
+  "Planning for Healthcare Professionals",
+  "Life Insurance Protection for My Family",
 ];
 
 export function LeadForm({
@@ -58,11 +58,11 @@ export function LeadForm({
       </div>
       <div className={s.row2}>
         <label className={s.field}>
-          First name
+          First Name
           <input name="first_name" autoComplete="given-name" required />
         </label>
         <label className={s.field}>
-          Last name
+          Last Name
           <input name="last_name" autoComplete="family-name" />
         </label>
       </div>
@@ -88,7 +88,7 @@ export function LeadForm({
         </label>
       </div>
       <label className={s.field}>
-        I&rsquo;m most interested in
+        I&rsquo;m Most Interested In
         <select name="interest" defaultValue={interest}>
           {INTERESTS.map((i) => (
             <option key={i}>{i}</option>
