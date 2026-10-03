@@ -45,7 +45,7 @@ export function LeadForm({
     return (
       <div className={s.thanks} role="status">
         <p className={s.eyebrow}>You&rsquo;re all set</p>
-        <h3 className={s.thanksTitle}>Thank you{state.firstName ? `, ${state.firstName}` : ""}.</h3>
+        <h3 className={s.thanksTitle}>Thank You{state.firstName ? `, ${state.firstName}` : ""}.</h3>
         <p>
           Your IUL Guide is downloading now. If it doesn&rsquo;t start, use the button below. Jaden will also reach
           out shortly to answer any questions. There&rsquo;s no cost and no obligation.

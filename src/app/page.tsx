@@ -66,76 +66,76 @@ type VariantKey = keyof typeof VARIANTS;
 
 const SEVEN = [
   {
-    t: "It’s life insurance first",
+    t: "It’s Life Insurance First",
     d: "An IUL is permanent life insurance with a death benefit. It is not a stock-market investment, and it should start with a real need for protection.",
   },
   {
-    t: "How index crediting works",
+    t: "How Index Crediting Works",
     d: "Your cash value isn’t invested in the market directly. Interest is credited based on the performance of an index, such as the S&P 500®, over a set period.",
   },
   {
-    t: "Caps and participation rates",
+    t: "Caps and Participation Rates",
     d: "Upside is limited. Caps and participation rates set how much of an index gain is credited, and the insurer can change them over time.",
   },
   {
-    t: "Floors protect against index losses",
+    t: "Floors Protect Against Index Losses",
     d: "Many policies have a 0% floor, so a down year for the index isn’t credited as a loss. Policy charges are still deducted in those years.",
   },
   {
-    t: "Policy charges matter",
+    t: "Policy Charges Matter",
     d: "Cost of insurance, administrative fees and rider charges reduce cash value, especially in the early years. Understand them before you commit.",
   },
   {
-    t: "Loans give access, with trade-offs",
+    t: "Loans Give Access, With Trade-offs",
     d: "You can borrow against cash value, but loans accrue interest and reduce the death benefit. A poorly managed loan can cause a policy to lapse.",
   },
   {
-    t: "Many values aren’t guaranteed",
+    t: "Many Values Aren’t Guaranteed",
     d: "Illustrations are hypothetical. Results depend on how the policy is funded, credited and reviewed over time, so it needs ongoing attention.",
   },
 ];
 
 const BUCKETS = [
   { k: "Bucket 1", t: "Your 401(k)", d: "Tax-deferred growth and often an employer match. Withdrawals in retirement are generally taxed as income." },
-  { k: "Bucket 2", t: "Your savings", d: "Liquid and accessible for emergencies and near-term goals, with growth that’s taxed along the way." },
+  { k: "Bucket 2", t: "Your Savings", d: "Liquid and accessible for emergencies and near-term goals, with growth that’s taxed along the way." },
   {
     k: "Bucket 3",
-    t: "An insurance strategy",
+    t: "An Insurance Strategy",
     d: "Properly structured permanent life insurance can add a death benefit plus cash value that may be accessed later.",
   },
 ];
 
 const TAX = [
-  { t: "Tax now", d: "Savings, CDs and brokerage accounts. Growth is generally taxed as you go." },
-  { t: "Tax later", d: "401(k)s and traditional IRAs. Contributions are often pre-tax, and withdrawals are taxed as income." },
+  { t: "Tax Now", d: "Savings, CDs and brokerage accounts. Growth is generally taxed as you go." },
+  { t: "Tax Later", d: "401(k)s and traditional IRAs. Contributions are often pre-tax, and withdrawals are taxed as income." },
   {
-    t: "Tax-advantaged",
+    t: "Tax-Advantaged",
     d: "Roth accounts and properly structured life insurance, where qualifying distributions or policy loans may be received income-tax-free.",
   },
 ];
 
 const AUDIENCES = [
-  { t: "Maxed-out 401(k) savers", d: "You’re already funding your employer plan and want to know what else is available." },
-  { t: "Business owners", d: "Much of your net worth is tied up in your company. Build something outside it." },
-  { t: "Healthcare professionals", d: "You care for everyone else. Make a plan for your own future, too." },
+  { t: "Maxed-Out 401(k) Savers", d: "You’re already funding your employer plan and want to know what else is available." },
+  { t: "Business Owners", d: "Much of your net worth is tied up in your company. Build something outside it." },
+  { t: "Healthcare Professionals", d: "You care for everyone else. Make a plan for your own future, too." },
   { t: "Families", d: "You want lasting protection for the people who depend on you, with long-term flexibility." },
 ];
 
 const FAQ = [
   {
-    q: "Is an IUL an investment?",
+    q: "Is an IUL an Investment?",
     a: "No. An IUL is a life insurance policy. Its cash value earns interest linked to an index, but your money is not invested in the stock market, and you don’t own shares of the index.",
   },
   {
-    q: "Can I lose money in an IUL?",
+    q: "Can I Lose Money in an IUL?",
     a: "Index crediting typically has a floor, so a market decline isn’t credited as a loss. However, policy charges continue to be deducted, so cash value can decline, especially if the policy is underfunded or loans aren’t managed.",
   },
   {
-    q: "Who is an IUL a good fit for?",
+    q: "Who Is an IUL a Good Fit For?",
     a: "It may fit people who need permanent life insurance, have a long time horizon, and can fund the policy consistently. It isn’t right for everyone, and it shouldn’t replace an emergency fund or employer match.",
   },
   {
-    q: "What does the review cost?",
+    q: "What Does the Review Cost?",
     a: "Nothing. The guide and the conversation are educational and free, with no obligation to buy anything.",
   },
 ];
@@ -265,7 +265,7 @@ export default async function JGallionLanding({
           <div className={s.sectionHead}>
             <p className={s.eyebrow}>Inside the guide</p>
             <h2 className={s.h2}>
-              7 things to understand <span className={s.gold}>before</span> using an IUL
+              7 Things to Understand <span className={s.gold}>Before</span> Using an IUL
             </h2>
             <p className={s.sectionSub}>
               Indexed Universal Life is often misunderstood. Here&rsquo;s a preview of what the guide walks through, in
@@ -281,7 +281,7 @@ export default async function JGallionLanding({
               </li>
             ))}
             <li className={s.sevenCta}>
-              <h3>Get all seven, explained.</h3>
+              <h3>Get All Seven, Explained.</h3>
               <p>Download the full guide free and keep it for your next conversation with your family or advisor.</p>
               <a className={s.btnGhost} href="#get-started">
                 {v.cta} <span aria-hidden="true">→</span>
@@ -298,7 +298,7 @@ export default async function JGallionLanding({
           <div>
             <p className={s.eyebrow}>The third bucket</p>
             <h2 className={s.h2}>
-              You have a 401(k). You have savings. <span className={s.gold}>What&rsquo;s your third bucket?</span>
+              You Have a 401(k). You Have Savings. <span className={s.gold}>What&rsquo;s Your Third Bucket?</span>
             </h2>
             <p className={s.body}>
               Your 401(k) doesn&rsquo;t have to be your entire retirement strategy. Some people use properly structured
@@ -323,7 +323,7 @@ export default async function JGallionLanding({
           <div>
             <p className={s.eyebrow}>Tax diversification</p>
             <h2 className={s.h2}>
-              What if taxes are <span className={s.gold}>higher</span> when you retire?
+              What If Taxes Are <span className={s.gold}>Higher</span> When You Retire?
             </h2>
             <p className={s.body}>
               Retirement planning isn&rsquo;t only about how much you accumulate. It&rsquo;s also about how different
@@ -352,7 +352,7 @@ export default async function JGallionLanding({
           <div className={s.sectionHead}>
             <p className={s.eyebrow}>Who we work with</p>
             <h2 className={s.h2}>
-              Planning built around <span className={s.gold}>your</span> situation
+              Planning Built Around <span className={s.gold}>Your</span> Situation
             </h2>
           </div>
           <ul className={s.audiences}>
@@ -384,15 +384,15 @@ export default async function JGallionLanding({
             </p>
             <ol className={s.steps}>
               <li>
-                <strong>Get the guide</strong>
+                <strong>Get the Guide</strong>
                 <span>Learn the basics on your own time.</span>
               </li>
               <li>
-                <strong>Have a conversation</strong>
+                <strong>Have a Conversation</strong>
                 <span>A short, no-cost educational review.</span>
               </li>
               <li>
-                <strong>Decide what fits</strong>
+                <strong>Decide What Fits</strong>
                 <span>Move forward only if it makes sense.</span>
               </li>
             </ol>
@@ -405,7 +405,7 @@ export default async function JGallionLanding({
         <div className={`${s.wrap} ${s.narrow}`}>
           <div className={s.sectionHead}>
             <p className={s.eyebrow}>Common questions</p>
-            <h2 className={s.h2}>Straight answers</h2>
+            <h2 className={s.h2}>Straight Answers</h2>
           </div>
           <div className={s.faq}>
             {FAQ.map((f) => (
@@ -422,7 +422,7 @@ export default async function JGallionLanding({
       <section className={s.final}>
         <div className={`${s.wrap} ${s.narrow}`}>
           <h2 className={s.h2}>
-            Strategy today. <span className={s.gold}>A brighter tomorrow.</span>
+            Strategy Today. <span className={s.gold}>A Brighter Tomorrow.</span>
           </h2>
           <p>Get your complimentary IUL Guide and see whether Indexed Universal Life belongs in your plan.</p>
           <a className={s.btnGold} href="#get-started">
