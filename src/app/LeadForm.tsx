@@ -1,10 +1,12 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { submitLead, type LandingState } from "./actions";
 import s from "./landing.module.css";
 
 const STATES = "AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY".split(" ");
+
+const GUIDE_URL = "/downloads/jgallion-iul-guide.pdf";
 
 const INTERESTS = [
   "The Free IUL Guide",
@@ -28,16 +30,27 @@ export function LeadForm({
 }) {
   const [state, action, pending] = useActionState<LandingState, FormData>(submitLead, {});
 
+  // Start the guide download as soon as the form goes through; the button below is the fallback.
+  useEffect(() => {
+    if (!state.ok) return;
+    const link = document.createElement("a");
+    link.href = GUIDE_URL;
+    link.download = "J-Gallion-IUL-Guide.pdf";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }, [state.ok]);
+
   if (state.ok) {
     return (
       <div className={s.thanks} role="status">
         <p className={s.eyebrow}>You&rsquo;re all set</p>
         <h3 className={s.thanksTitle}>Thank you{state.firstName ? `, ${state.firstName}` : ""}.</h3>
         <p>
-          Your copy of the IUL Guide is ready below{state.emailed ? ", and we\u2019ve emailed you a copy too" : ""}. Jaden
-          will also reach out shortly to answer any questions. There&rsquo;s no cost and no obligation.
+          Your IUL Guide is downloading now. If it doesn&rsquo;t start, use the button below. Jaden will also reach
+          out shortly to answer any questions. There&rsquo;s no cost and no obligation.
         </p>
-        <a className={s.btnGold} href="/downloads/jgallion-iul-guide.pdf" target="_blank" rel="noopener" download>
+        <a className={s.btnGold} href={GUIDE_URL} target="_blank" rel="noopener" download="J-Gallion-IUL-Guide.pdf">
           Download the Guide <span aria-hidden="true">↓</span>
         </a>
       </div>

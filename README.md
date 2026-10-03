@@ -51,7 +51,7 @@ LEAD_WEBHOOK_URL=https://<onradar host>/api/leads/<clientId>/inbound?key=<inboun
 
 The lead includes `first_name`, `last_name`, `email`, `phone`, `state`, `source` (from `utm_source`, otherwise "Landing page"), the visitor's interest, the offer, a timestamped contact consent, and any UTM parameters. Any webhook that accepts JSON (Zapier, Make, GoHighLevel inbound webhook) also works.
 
-If neither `LEAD_WEBHOOK_URL` nor `LEAD_NOTIFY_EMAIL` (with Resend) is set, `npm run dev` logs leads to the console, and production shows an error so leads aren't silently lost.
+If `LEAD_WEBHOOK_URL` isn't set, `npm run dev` logs leads to the console, and production shows an error so leads aren't silently lost.
 
 ## Develop
 
@@ -61,23 +61,6 @@ cp .env.example .env.local   # set LEAD_WEBHOOK_URL
 npm run dev
 ```
 
-## Emailing the guide (Resend)
-
-The form can email each lead the IUL Guide right away, and email Jaden the lead's details, using [Resend](https://resend.com). Code: `src/app/email.ts`.
-
-1. Create a Resend account and verify the domain you'll send from (Resend → Domains). Add the DNS records it shows at your domain host, and wait for it to say *Verified*.
-2. Create an API key (Resend → API Keys, "Sending access").
-3. In Netlify → *Site configuration → Environment variables*, set:
-   - `RESEND_API_KEY`: the key
-   - `EMAIL_FROM`: e.g. `Jaden Gallion <jaden@jgallionfinancial.com>` (must use the verified domain)
-   - `EMAIL_REPLY_TO` (optional): where replies go, e.g. Jaden's inbox
-   - `LEAD_NOTIFY_EMAIL` (optional): who gets an email for every new lead
-4. Redeploy, then submit the form with your own email to test.
-
-The guide email links to `/downloads/jgallion-iul-guide.pdf` on whatever domain the form was submitted from. If the email fails, the visitor still sees the download button and the error is logged. `LEAD_WEBHOOK_URL` is optional when `LEAD_NOTIFY_EMAIL` is set; at least one of them must be set in production so leads are recorded.
-
-Resend sends email only. For text messages, use a texting provider such as Twilio or your CRM.
-
 ## The IUL Guide (PDF)
 
 The lead magnet is `public/downloads/jgallion-iul-guide.pdf` (12 pages, US Letter), built from [`guide/iul-guide.html`](guide/iul-guide.html) with the brand fonts in `guide/fonts/`. To edit it, change the HTML and rebuild with `npx -y -p playwright node guide/build.js`, or open the HTML in Chrome and *Print → Save as PDF* (Letter, no margins, background graphics on).
@@ -86,4 +69,4 @@ The lead magnet is `public/downloads/jgallion-iul-guide.pdf` (12 pages, US Lette
 
 - Have compliance review the page copy, the IUL Guide and the disclaimers, and add Jaden's license numbers or states if required.
 - Confirm the bio in "Meet Jaden" and add a phone number or booking link if wanted.
-- After submitting, visitors get a download button for the IUL Guide (`/downloads/jgallion-iul-guide.pdf`), and an email with the link if Resend is set up (see above).
+- After submitting, the IUL Guide (`/downloads/jgallion-iul-guide.pdf`) downloads automatically, with a download button as a fallback. No email or text is needed to deliver it.
