@@ -59,7 +59,14 @@ Each new lead can also be emailed and/or texted to Jaden (`src/app/notify.ts`). 
 1. Sign up at [resend.com](https://resend.com) with the email address that should receive leads, and create an API key (*API Keys → Create*, "Sending access").
 2. Set `RESEND_API_KEY` to the key and `LEAD_NOTIFY_EMAIL` to that same email address.
 
-That's all that's needed: alerts come from Resend's test sender (`onboarding@resend.dev`), which can deliver to the account's own email address. To send to other addresses (comma-separated) or from your own domain, verify the domain in Resend (*Domains*) and set `EMAIL_FROM`, e.g. `J Gallion Leads <leads@jgallionfinancial.com>`. Replying to an alert writes to the lead.
+That's all that's needed: alerts come from Resend's test sender (`onboarding@resend.dev`), which can deliver to the account's own email address. To send to other people, verify a domain in Resend (*Domains*) and set `EMAIL_FROM` to an address on it, e.g. `J Gallion Leads <leads@jgallionfinancial.com>`. Then list recipients, comma-separated:
+
+```
+LEAD_NOTIFY_EMAIL=rsoto@retireaef.com, prusso@retireaef.com
+LEAD_NOTIFY_BCC=bernard@teamcerium.com
+```
+
+Replying to an alert writes to the lead.
 
 **Text (Twilio):**
 1. Sign up at [twilio.com](https://twilio.com) and buy a phone number (toll-free numbers are simplest).

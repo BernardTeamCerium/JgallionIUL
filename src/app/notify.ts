@@ -2,7 +2,8 @@
  * New-lead alerts to Jaden, by email (Resend) and/or text (Twilio). Each channel is on only when its
  * settings are present, so the site works with either, both or neither.
  *
- * Email: RESEND_API_KEY + LEAD_NOTIFY_EMAIL. EMAIL_FROM is optional; without it the alert is sent from
+ * Email: RESEND_API_KEY + LEAD_NOTIFY_EMAIL (comma-separated), plus optional LEAD_NOTIFY_BCC (comma-separated).
+ *   EMAIL_FROM is optional; without it the alert is sent from
  *   Resend's test sender, which can only deliver to the email address the Resend account was created with.
  * Text:  TWILIO_ACCOUNT_SID + TWILIO_AUTH_TOKEN + TWILIO_FROM (a Twilio number) + LEAD_NOTIFY_PHONE.
  */
@@ -10,6 +11,9 @@
 type Lead = Record<string, string>;
 
 const env = (k: string) => process.env[k]?.trim() || "";
+
+/** Comma-separated env value as a list of addresses. */
+const list = (k: string) => env(k).split(",").map((s) => s.trim()).filter(Boolean);
 
 const emailOn = () => Boolean(env("RESEND_API_KEY") && env("LEAD_NOTIFY_EMAIL"));
 const textOn = () =>
@@ -30,7 +34,8 @@ async function emailAlert(lead: Lead) {
     headers: { authorization: `Bearer ${env("RESEND_API_KEY")}`, "content-type": "application/json" },
     body: JSON.stringify({
       from: env("EMAIL_FROM") || "J Gallion Leads <onboarding@resend.dev>",
-      to: env("LEAD_NOTIFY_EMAIL").split(",").map((s) => s.trim()).filter(Boolean),
+      to: list("LEAD_NOTIFY_EMAIL"),
+      ...(list("LEAD_NOTIFY_BCC").length ? { bcc: list("LEAD_NOTIFY_BCC") } : {}),
       reply_to: lead.email,
       subject: `New IUL lead: ${fullName(lead)}`,
       html: `<div style="font-family:Arial,sans-serif;font-size:14px;color:#0f172a;">
