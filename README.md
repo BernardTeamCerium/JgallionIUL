@@ -51,7 +51,22 @@ LEAD_WEBHOOK_URL=https://<onradar host>/api/leads/<clientId>/inbound?key=<inboun
 
 The lead includes `first_name`, `last_name`, `email`, `phone`, `state`, `source` (from `utm_source`, otherwise "Landing page"), the visitor's interest, the offer, a timestamped contact consent, and any UTM parameters. Any webhook that accepts JSON (Zapier, Make, GoHighLevel inbound webhook) also works.
 
-If `LEAD_WEBHOOK_URL` isn't set, `npm run dev` logs leads to the console, and production shows an error so leads aren't silently lost.
+## Get an email or text for every lead
+
+Each new lead can also be emailed and/or texted to Jaden (`src/app/notify.ts`). Set these under Netlify → *Site configuration → Environment variables*, then redeploy.
+
+**Email (Resend):**
+1. Sign up at [resend.com](https://resend.com) with the email address that should receive leads, and create an API key (*API Keys → Create*, "Sending access").
+2. Set `RESEND_API_KEY` to the key and `LEAD_NOTIFY_EMAIL` to that same email address.
+
+That's all that's needed: alerts come from Resend's test sender (`onboarding@resend.dev`), which can deliver to the account's own email address. To send to other addresses (comma-separated) or from your own domain, verify the domain in Resend (*Domains*) and set `EMAIL_FROM`, e.g. `J Gallion Leads <leads@jgallionfinancial.com>`. Replying to an alert writes to the lead.
+
+**Text (Twilio):**
+1. Sign up at [twilio.com](https://twilio.com) and buy a phone number (toll-free numbers are simplest).
+2. Complete Twilio's verification for that number. US carriers require this before texts are delivered (toll-free verification or A2P 10DLC registration), and it can take a few days.
+3. Set `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` (Twilio Console home page), `TWILIO_FROM` (the Twilio number, e.g. `+18885550123`) and `LEAD_NOTIFY_PHONE` (your cell, e.g. `+15555550123`).
+
+A lead counts as delivered if the webhook or any alert succeeds. If none of `LEAD_WEBHOOK_URL`, email alerts or text alerts are set, `npm run dev` logs leads to the console, and production shows an error so leads aren't silently lost.
 
 ## Develop
 
